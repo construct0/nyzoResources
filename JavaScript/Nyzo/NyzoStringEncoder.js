@@ -62,7 +62,7 @@ class NyzoStringEncoder {
             let calculatedChecksum = NyzoUtil.DoubleSha256(expandedArray.subarray(0, headerLength + contentLength)).subarray(0, checksumLength);
             let providedChecksum = expandedArray.subarray(expandedArray.length - checksumLength, expandedArray.length);
     
-            if (arraysAreEqual(calculatedChecksum, providedChecksum)) {
+            if (NyzoStringEncoder.ArraysAreEqual(calculatedChecksum, providedChecksum)) {
                 // Get the content array. This is the encoded object with the prefix, length byte, and checksum removed.
                 let contentBytes = expandedArray.subarray(headerLength, expandedArray.length - checksumLength);
     
