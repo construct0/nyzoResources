@@ -48,7 +48,7 @@ class NyzoStringEncoder {
         let prefix = encodedString.substring(0, 4);
     
         // Get the array representation of the encoded string.
-        let expandedArray = NyzoStringEncoder.ByteArrayForEncodedString(encodedString); // [todo]
+        let expandedArray = NyzoStringEncoder.ByteArrayForEncodedString(encodedString);
     
         // Get the content length from the next byte and calculate the checksum length.
         let contentLength = expandedArray[3] & 0xff;
