@@ -79,4 +79,50 @@ class NyzoUtil {
     static PrintAmount(amountMicronyzos) {
         return '&cap;' + (amountMicronyzos / 1000000).toFixed(6);
     }
+
+    static IsValidAmountOfMicroNyzos(value){
+        let parsedValue = parseFloat(value);
+
+        if(CommonUtil.IsUndefined(parsedValue) || Number.isNaN(parsedValue) || parsedValue < NyzoConstants.GetMinimumTransactionAmount()){
+            return false;
+        }
+
+        return true;
+    }
+
+    static IsValidPrivateKey(keyString){
+        let isValid = false;
+        if (typeof keyString === 'string') {
+            keyString = keyString.trim();
+            let key = NyzoStringEncoder.Decode(keyString);
+            isValid = key != null && typeof key.getSeed() !== 'undefined';
+        }
+    
+        return isValid;
+    }
+
+    static IsValidPublicIdentifier(identifierString){
+        let isValid = false;
+        if (typeof identifierString === 'string') {
+            identifierString = identifierString.trim();
+            let identifier = NyzoStringEncoder.Decode(identifierString);
+            isValid = identifier != null && typeof identifier.getIdentifier() !== 'undefined';
+        }
+
+        return isValid;
+    }
+
+    static IsValidClientURL(){
+        // This is not a robust check for valid/invalid URLs. It is just a check to ensure that the provided URL is somewhat
+        // reasonable for use as a client URL.
+        let isValid = false;
+        if (typeof clientUrl === 'string') {
+            clientUrl = clientUrl.trim();
+            isValid = (clientUrl.startsWith('http://') || clientUrl.startsWith('https://')) && !clientUrl.includes('<') &&
+                !clientUrl.includes('>') && !clientUrl.includes('?') && !clientUrl.includes(' ') &&
+                !clientUrl.includes('%');
+        }
+
+        return isValid;
+    }
 }
