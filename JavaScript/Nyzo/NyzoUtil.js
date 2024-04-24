@@ -39,8 +39,8 @@ class NyzoUtil {
                 let underscoreIndex = lowercase.indexOf('_');
 
                 if (underscoreIndex < 0) {
-                    underscoreIndex = maximumSenderDataLength * 2 + 2;
-                }
+                    underscoreIndex = NyzoConstants.GetMaximumSenderDataLength() * 2 + 2;
+                } 
 
                 let dataLength = underscoreIndex / 2 - 1;
     
