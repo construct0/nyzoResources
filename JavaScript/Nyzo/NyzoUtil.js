@@ -112,7 +112,7 @@ class NyzoUtil {
         return isValid;
     }
 
-    static IsValidClientURL(){
+    static IsValidClientURL(clientUrl){
         // This is not a robust check for valid/invalid URLs. It is just a check to ensure that the provided URL is somewhat
         // reasonable for use as a client URL.
         let isValid = false;
