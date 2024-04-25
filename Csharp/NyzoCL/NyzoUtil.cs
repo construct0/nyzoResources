@@ -101,8 +101,8 @@ public static class NyzoUtil {
         var isValid = false;
 
         keyString = keyString.Trim();
-        var key = NyzoStringEncoder.Decode(keyString);
-        isValid = key is not null && !String.IsNullOrWhiteSpace(key.Seed) && !String.IsNullOrEmpty(key.Seed);
+        var key = NyzoStringEncoder.DecodePrivateSeed(keyString);
+        isValid = key is not null;
 
         return isValid;
     }
@@ -111,8 +111,8 @@ public static class NyzoUtil {
         var isValid = false;
 
         identifierString = identifierString.Trim();
-        var identifier = NyzoStringEncoder.Decode(identifierString);
-        isValid = identifier is not null && !String.IsNullOrWhiteSpace(identifier.Identifier) && !String.IsNullOrEmpty(identifier.Identifier);
+        var identifier = NyzoStringEncoder.DecodePublicIdentifier(identifierString);
+        isValid = identifier is not null;
 
         return isValid;
     }
