@@ -73,10 +73,7 @@ public static class NyzoUtil {
         }
 
         // If processing of a normalized sender-data string did not produce a result, process as a plain-text string
-        if(array is null){
-            array = new byte[Math.Min(senderData.Length, 32)];
-            array = Encoding.Unicode.GetBytes(senderData);
-        }
+        array ??= Encoding.Unicode.GetBytes(senderData, 0, Math.Min(senderData.Length, 32));
 
         return array;
     }
