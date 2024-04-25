@@ -5,11 +5,11 @@ class NyzoConverter {
         if (typeof keyString === "string") {
             // Decode the key string.
             keyString = keyString.trim();
-            let key = decode(keyString);
+            let key = NyzoStringEncoder.Decode(keyString);
             if (key != null && typeof key.getSeed() !== "undefined") {
                 // Get the identifier for the key and make an identifier string.
                 let keyPair = nacl.sign.keyPair.fromSeed(key.getSeed());
-                identifierString = nyzoStringFromPublicIdentifier(keyPair.publicKey);
+                identifierString = NyzoStringEncoder.NyzoStringFromPublicIdentifier(keyPair.publicKey);
             }
         }
 
