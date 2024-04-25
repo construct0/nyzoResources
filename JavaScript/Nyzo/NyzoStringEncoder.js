@@ -130,34 +130,6 @@ class NyzoStringEncoder {
         return encodedString;
     }
 
-    static EncodedStringForByteArray(array) {
-        let characterLookup = NyzoStringEncoder.GetCharacterLookup();
-
-        let index = 0;
-        let bitOffset = 0;
-        let encodedString = "";
-        
-        while (index < array.length) {
-            // Get the current and next byte.
-            let leftByte = array[index] & 0xff;
-            let rightByte = index < array.length - 1 ? array[index + 1] & 0xff : 0;
-    
-            // Append the character for the next 6 bits in the array.
-            let lookupIndex = (((leftByte << 8) + rightByte) >> (10 - bitOffset)) & 0x3f;
-            encodedString += characterLookup[lookupIndex];
-    
-            // Advance forward 6 bits.
-            if (bitOffset == 0) {
-                bitOffset = 6;
-            } else {
-                index++;
-                bitOffset -= 2;
-            }
-        }
-    
-        return encodedString;
-    }
-
     static EncodedNyzoString(prefix, contentBytes) {
         // Get the prefix array from the type.
         let prefixBytes = NyzoStringEncoder.ByteArrayForEncodedString(prefix);
