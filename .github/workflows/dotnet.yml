@@ -21,11 +21,17 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: |
+          cd .\CSharp\NyzoCL\
+          dotnet restore
       working-directory: ./CSharp/NyzoCL
     - name: Build
-      run: dotnet build --no-restore
+      run: |
+          cd .\CSharp\NyzoCL\
+          dotnet build --no-restore
       working-directory: ./CSharp/NyzoCL
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: |
+          cd .\CSharp\NyzoCL\
+          dotnet test --no-build --verbosity normal
       working-directory: ./CSharp/NyzoCL
