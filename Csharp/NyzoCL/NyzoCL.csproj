@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <PackageId>Nyzo.CL</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.2</Version>
     <Authors>Benjamin Van Renterghem</Authors>
     <Company>construct0</Company>
+    <RepositoryUrl>https://github.com/construct0/nyzoResources</RepositoryUrl>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>net8.0</TargetFramework>
