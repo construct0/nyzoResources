@@ -22,16 +22,16 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: |
-          cd CSharp
+          cd Csharp
           cd NyzoCL
           dotnet restore
     - name: Build
       run: |
-          cd CSharp
+          cd Csharp
           cd NyzoCL
           dotnet build --no-restore
     - name: Test
       run: |
-          cd CSharp
+          cd Csharp
           cd NyzoCL
           dotnet test --no-build --verbosity normal
