@@ -114,6 +114,40 @@ public static class NyzoUtil {
         return isValid;
     }
 
+    public static bool IsValidSignedMessage(string signedMessageString, string publicIdentifierString){
+        publicIdentifierString = publicIdentifierString.Trim();
+        var identifier = NyzoStringEncoder.DecodePublicIdentifier(publicIdentifierString);
+        var signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
+
+        if(identifier?.Identifier is null || signedMessage is null){
+            return false;
+        }
+
+        try {
+            Sodium.PublicKeyAuth.Verify(signedMessage, identifier.Identifier);
+        } catch {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static byte[] GetSignedMessageContent(string signedMessageString, string publicIdentifierString){
+        publicIdentifierString = publicIdentifierString.Trim();
+        var identifier = NyzoStringEncoder.DecodePublicIdentifier(publicIdentifierString);
+        var signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
+
+        if(identifier?.Identifier is null || signedMessage is null){
+            throw new ArgumentException();
+        }
+
+        try {
+            return Sodium.PublicKeyAuth.Verify(signedMessage, identifier.Identifier);
+        } catch {
+            throw new CryptographicException();
+        }
+    }
+
     // This is not a robust check for valid/invalid URLs. It is just a check to ensure that the provided URL is somewhat reasonable for use as a client URL.
     public static bool IsValidClientURL(string clientUrl){
         var isValid = false;
