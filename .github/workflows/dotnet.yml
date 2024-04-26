@@ -24,14 +24,11 @@ jobs:
       run: |
           cd .\CSharp\NyzoCL\
           dotnet restore
-      working-directory: ./CSharp/NyzoCL
     - name: Build
       run: |
           cd .\CSharp\NyzoCL\
           dotnet build --no-restore
-      working-directory: ./CSharp/NyzoCL
     - name: Test
       run: |
           cd .\CSharp\NyzoCL\
           dotnet test --no-build --verbosity normal
-      working-directory: ./CSharp/NyzoCL
