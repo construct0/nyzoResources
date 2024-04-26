@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>Nyzo.CL</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Benjamin Van Renterghem</Authors>
+    <Company>construct0</Company>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
