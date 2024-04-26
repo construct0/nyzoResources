@@ -6,9 +6,9 @@ class NyzoConverter {
             // Decode the key string.
             keyString = keyString.trim();
             let key = NyzoStringEncoder.Decode(keyString);
-            if (key != null && typeof key.getSeed() !== "undefined") {
+            if (key != null && !CommonUtil.IsUndefined(key.GetSeed())) {
                 // Get the identifier for the key and make an identifier string.
-                let keyPair = nacl.sign.keyPair.fromSeed(key.getSeed());
+                let keyPair = nacl.sign.keyPair.fromSeed(key.GetSeed());
                 identifierString = NyzoStringEncoder.NyzoStringFromPublicIdentifier(keyPair.publicKey);
             }
         }

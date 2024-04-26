@@ -95,7 +95,7 @@ class NyzoUtil {
         if (typeof keyString === 'string') {
             keyString = keyString.trim();
             let key = NyzoStringEncoder.Decode(keyString);
-            isValid = key != null && typeof key.getSeed() !== 'undefined';
+            isValid = key != null && !CommonUtil.IsUndefined(key.GetSeed());
         }
     
         return isValid;
@@ -106,10 +106,57 @@ class NyzoUtil {
         if (typeof identifierString === 'string') {
             identifierString = identifierString.trim();
             let identifier = NyzoStringEncoder.Decode(identifierString);
-            isValid = identifier != null && typeof identifier.getIdentifier() !== 'undefined';
+            isValid = identifier != null && !CommonUtil.IsUndefined(identifier.GetIdentifier());
         }
 
         return isValid;
+    }
+
+    // The return isValid = [value] assignments are purely symbolic
+    static IsValidSignedMessage(signedMessageString, publicIdentifierString){
+        let isValid = false;
+        let identifier = null;
+        let signedMessage = null;
+
+        if(typeof publicIdentifierString === "string"){
+            publicIdentifierString = publicIdentifierString.trim();
+            identifier = NyzoStringEncoder.Decode(publicIdentifierString);
+        }
+
+        if(typeof signedMessageString === "string" && identifier != null && !CommonUtil.IsUndefined(identifier.GetIdentifier())){
+            signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
+        }
+
+        if(!identifier || signedMessage == null || CommonUtil.IsUndefined(signedMessage)){
+            return isValid = false;
+        }
+
+        let verificationResult = nacl.sign.open(signedMessage, identifier);
+
+        if(verificationResult == null || CommonUtil.IsUndefined(verificationResult)) {
+            return isValid = false;
+        }
+
+        return isValid = true;
+    }
+
+    // This assumes you called IsValidSignedMessage already
+    static GetSignedMessageContent(signedMessageString, publicIdentifierString){
+        publicIdentifierString = publicIdentifierString.trim();
+        let identifier = NyzoStringEncoder.Decode(publicIdentifierString);
+        let signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
+
+        if(!identifier || signedMessage == null || CommonUtil.IsUndefined(signedMessage)){
+            throw new Error("[0]: Could not get content, validate your arguments with NyzoUtil.IsValidSignedMessage first");
+        }
+
+        let result = nacl.sign.open(signedMessage, identifier);
+
+        if(result == null || CommonUtil.IsUndefined(result)) {
+            throw new Error("[1]: Could not get content, validate your arguments with NyzoUtil.IsValidSignedMessage first");
+        }
+
+        return result;
     }
 
     static IsValidClientURL(clientUrl){

@@ -132,19 +132,20 @@ public static class NyzoUtil {
         return true;
     }
 
+    // This assumes you called IsValidSignedMessage already
     public static byte[] GetSignedMessageContent(string signedMessageString, string publicIdentifierString){
         publicIdentifierString = publicIdentifierString.Trim();
         var identifier = NyzoStringEncoder.DecodePublicIdentifier(publicIdentifierString);
         var signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
 
         if(identifier?.Identifier is null || signedMessage is null){
-            throw new ArgumentException();
+            throw new ArgumentException("[0]: Could not get content, validate your arguments with NyzoUtil.IsValidSignedMessage first");
         }
 
         try {
             return Sodium.PublicKeyAuth.Verify(signedMessage, identifier.Identifier);
         } catch {
-            throw new CryptographicException();
+            throw new CryptographicException("[1]: Could not get content, validate your arguments with NyzoUtil.IsValidSignedMessage first");
         }
     }
 
