@@ -1,4 +1,4 @@
-class ByteBuffer {
+export default class ByteBuffer {
     constructor(maximumSize) {
         this.index = 0;
         this.array = new Uint8Array(Math.max(maximumSize, 1));

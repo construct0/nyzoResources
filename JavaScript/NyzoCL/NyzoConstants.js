@@ -1,4 +1,4 @@
-class NyzoConstants {
+export default class NyzoConstants {
     static GetGenesisBlockHash(){
         return NyzoUtil.HexStringAsUint8Array("bc4cca2a2a50a229-256ae3f5b2b5cd49-aa1df1e2d0192726-c4bb41cdcea15364");
     }

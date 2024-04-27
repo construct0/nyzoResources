@@ -1,4 +1,4 @@
-class NyzoStringPublicIdentifier {
+export default class NyzoStringPublicIdentifier {
     constructor(identifier) {
         this.identifier = identifier;
     }

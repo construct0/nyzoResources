@@ -1,4 +1,6 @@
-class NyzoConverter {
+import nacl from "tweetnacl";
+
+export default class NyzoConverter {
     static PublicIdentifierForPrivateKey(keyString){
         let identifierString = "";
 

@@ -1,4 +1,6 @@
-class NyzoTransaction {
+import nacl from "tweetnacl";
+
+export default class NyzoTransaction {
     constructor() {
         this.timestamp = Date.now();
         this.type = 2;

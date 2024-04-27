@@ -1,6 +1,9 @@
-'use strict';
+"use strict";
 
-class NyzoUtil {
+import nacl from "tweetnacl";
+import sha256Min from "./sha256.min";
+
+export default class NyzoUtil {
     static HexStringAsUint8Array(identifier) {
         identifier = identifier.split('-').join('');
         let array = new Uint8Array(identifier.length / 2);
@@ -19,7 +22,7 @@ class NyzoUtil {
             ascii += String.fromCharCode(array[i]);
         }
     
-        return NyzoUtil.HexStringAsUint8Array(sha256(ascii));
+        return NyzoUtil.HexStringAsUint8Array(sha256Min(ascii));
     }
 
     static DoubleSha256(array) {

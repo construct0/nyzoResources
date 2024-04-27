@@ -1,4 +1,4 @@
-class NyzoStringPrivateSeed {
+export default class NyzoStringPrivateSeed {
     constructor(seed) {
         this.seed = seed;
     }

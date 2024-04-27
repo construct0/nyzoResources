@@ -1,4 +1,4 @@
-class NyzoMicropayConfiguration {
+export default class NyzoMicropayConfiguration {
     constructor(clientUrl, receiverId, tag, displayName, amountMicronyzos) {
         let cleanTag = (_tag) => {
             // This was previously called cleanTag in the extensionUtil
