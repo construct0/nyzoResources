@@ -1,6 +1,6 @@
-import nacl from "tweetnacl";
+const nacl = require("tweetnacl");
 
-export default class NyzoConverter {
+module.exports = class NyzoConverter {
     static PublicIdentifierForPrivateKey(keyString){
         let identifierString = "";
 

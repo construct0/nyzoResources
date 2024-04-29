@@ -1,4 +1,4 @@
-export default class NyzoStringEncoder {
+module.exports = class NyzoStringEncoder {
     static GetCharacterLookup() {
         return ('0123456789' + 'abcdefghijkmnopqrstuvwxyz' + 'ABCDEFGHIJKLMNPQRSTUVWXYZ' + '-.~_').split('');
     }

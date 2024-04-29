@@ -1,5 +1,5 @@
-export default class NyzoMicropayConfiguration {
-    constructor(clientUrl, receiverId, tag, displayName, amountMicronyzos) {
+module.exports = class NyzoMicropayConfiguration {
+    constructor(clientUrl, receiverId, tag, displayName, amountMicroNyzos) {
         let cleanTag = (_tag) => {
             // This was previously called cleanTag in the extensionUtil
 
@@ -24,7 +24,7 @@ export default class NyzoMicropayConfiguration {
         this.displayName = cleanDisplayName(displayName);
         this.clientUrl = NyzoUtil.IsValidClientURL(clientUrl) ? clientUrl : null;
         this.receiverId = NyzoUtil.IsValidPublicIdentifier(receiverId) ? receiverId : null;
-        this.amountMicronyzos = amountMicronyzos;
+        this.amountMicronyzos = amountMicroNyzos;
     }
 
     static GetClientURL(){

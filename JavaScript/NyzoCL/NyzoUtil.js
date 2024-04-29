@@ -1,9 +1,9 @@
 "use strict";
 
-import nacl from "tweetnacl";
-import sha256Min from "./sha256.min";
+const nacl = require("tweetnacl");
+const sha256Min = require("./sha256.min");
 
-export default class NyzoUtil {
+module.exports = class NyzoUtil {
     static HexStringAsUint8Array(identifier) {
         identifier = identifier.split('-').join('');
         let array = new Uint8Array(identifier.length / 2);

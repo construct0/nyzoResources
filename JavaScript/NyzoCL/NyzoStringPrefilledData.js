@@ -1,4 +1,4 @@
-export default class NyzoStringPrefilledData {
+module.exports = class NyzoStringPrefilledData {
     constructor(receiverIdentifier, senderData) {
         this.receiverIdentifier = receiverIdentifier;
         this.senderData = senderData;

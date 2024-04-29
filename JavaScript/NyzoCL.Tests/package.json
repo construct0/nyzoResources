@@ -1,0 +1,23 @@
+{
+  "name": "@construct0/nyzo.cl.tests",
+  "version": "0.1.0",
+  "description": "Test project for the @construct0/nyzo.cl npm package. The version indicates to which nyzo.cl version it has been aligned with.",
+  "main": "index.js",
+  "scripts": {
+    "test": "cp ./node_modules/@construct0/nyzo.cl/output/nyzo.cl.bundle.js ./public/nyzo.cl.bundle.js && npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/construct0/nyzoResources.git#main"
+  },
+  "bugs": {
+    "url": "https://github.com/construct0/nyzoResources/issues"
+  },
+  "homepage": "https://github.com/construct0/nyzoResources/tree/main#readme",
+  "author": "Benjamin Van Renterghem",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cypress": "^13.8.1",
+    "http-server": "^14.1.1"
+  }
+}

@@ -1,6 +1,6 @@
-import nacl from "tweetnacl";
+const nacl = require("tweetnacl");
 
-export default class NyzoTransaction {
+module.exports = class NyzoTransaction {
     constructor() {
         this.timestamp = Date.now();
         this.type = 2;

@@ -24,3 +24,8 @@ An attempt was made to install tweetnacl as a dependency by referencing the git 
 
 
 The node_modules folder containing tweetnacl is not excluded from the repository and acts as a backup of the library. Developer dependencies have been omitted.
+
+
+
+
+The `npm run bundle` script is deliberately not creating a minified bundle & no such script will be added.

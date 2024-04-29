@@ -1,4 +1,4 @@
-export default class NyzoStringPublicIdentifier {
+module.exports = class NyzoStringPublicIdentifier {
     constructor(identifier) {
         this.identifier = identifier;
     }

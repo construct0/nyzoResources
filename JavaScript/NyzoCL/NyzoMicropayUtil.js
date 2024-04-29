@@ -1,7 +1,7 @@
 // The function "sanitizeString" was not ported from n-y-z-o/nyzoChromeExtension due to not being used and not filtering any ascii character
 // https://i.imgur.com/GypN9bM.png
 
-export default class NyzoMicropayUtil {
+module.exports = class NyzoMicropayUtil {
     static IsValidTipAmount(){
         let tipAmountMicronyzos = NyzoConverter.GetAmountOfMicroNyzos(tipString);
         return tipAmountMicronyzos >= 2 && tipAmountMicronyzos <= 10 * NyzoConstants.GetMicroNyzosPerNyzo();

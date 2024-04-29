@@ -1,4 +1,4 @@
-export default class NyzoStringPrivateSeed {
+module.exports = class NyzoStringPrivateSeed {
     constructor(seed) {
         this.seed = seed;
     }
