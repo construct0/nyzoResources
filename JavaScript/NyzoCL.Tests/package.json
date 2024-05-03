@@ -4,7 +4,8 @@
   "description": "Test project for the @construct0/nyzo.cl npm package. The version indicates to which nyzo.cl version it has been aligned with.",
   "main": "index.js",
   "scripts": {
-    "test": "cp ./node_modules/@construct0/nyzo.cl/output/nyzo.cl.bundle.js ./public/nyzo.cl.bundle.js && npx cypress open"
+    "test": "cp ./node_modules/@construct0/nyzo.cl/output/nyzo.cl.bundle.js ./public/nyzo.cl.bundle.js && npx cypress open",
+    "test-win": "copy ./node_modules/@construct0/nyzo.cl/output/nyzo.cl.bundle.js ./public/nyzo.cl.bundle.js && npx cypress open"
   },
   "repository": {
     "type": "git",

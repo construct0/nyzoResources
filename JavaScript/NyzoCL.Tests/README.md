@@ -69,9 +69,13 @@ Confirm the HTTP server is serving content from the *./public* folder by visitin
 ---
 **Starting the cypress client & dedicated browser window**
 
-In a **new terminal window** run the following command, do not close the other terminal window.
+For GNU/Linux operating systems, open a **new terminal window** and run the following command, do not close the other terminal window.
 ```
 npm run test
+```
+For Windows operating systems, open a **new terminal window** and run the following command, do not close the other terminal window.
+```
+npm run test-win
 ```
 
 The Cypress GUI client should open, continue by 
