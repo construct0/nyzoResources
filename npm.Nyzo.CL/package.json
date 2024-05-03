@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/construct0/nyzoResources/issues"
   },
-  "homepage": "https://github.com/construct0/nyzoResources/tree/main#readme",
+  "homepage": "https://github.com/construct0/nyzoResources/npm.Nyzo.CL/README.md",
   "dependencies": {
     "tweetnacl": "^1.0.0-rc.1"
   },

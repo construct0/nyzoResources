@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <PackageId>Nyzo.CL</PackageId>
-    <Version>0.1.7</Version>
+    <Version>0.1.8</Version>
     <Authors>Benjamin Van Renterghem</Authors>
     <Company>construct0</Company>
     <PackageDescription>Nyzo class library. Not production ready until major version 1.0.0.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/construct0/nyzoResources/tree/main/Csharp/NyzoCL</RepositoryUrl>
+    <RepositoryUrl>https://github.com/construct0/nyzoResources/tree/main/dotnet.Nyzo.CL</RepositoryUrl>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>net8.0</TargetFramework>
