@@ -1,4 +1,4 @@
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 public class NyzoStringPrivateSeed {
     public byte[] Seed {get;init;}

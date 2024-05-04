@@ -1,4 +1,4 @@
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 public class NyzoStringPublicIdentifier {
     public byte[] Identifier {get;init;}

@@ -1,6 +1,6 @@
 using System;
 
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 // Untested. Use at your own risk.
 public class NyzoTransaction {

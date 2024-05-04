@@ -4,7 +4,7 @@ using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 // Untested - todo
 public static class NyzoUtil {

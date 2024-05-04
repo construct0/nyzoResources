@@ -1,6 +1,6 @@
 using System;
 
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 public class NyzoConverter {
     public static string PublicIdentifierForPrivateKey(string keyString){

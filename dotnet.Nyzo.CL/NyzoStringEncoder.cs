@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 public static class NyzoStringEncoder {
     public static string[] CharacterLookup => ("0123456789" + "abcdefghijkmnopqrstuvwxyz" + "ABCDEFGHIJKLMNPQRSTUVWXYZ" + "-.~_").Split("");

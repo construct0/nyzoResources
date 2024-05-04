@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 public class ByteBuffer {
     private readonly MemoryStream _memoryStream;

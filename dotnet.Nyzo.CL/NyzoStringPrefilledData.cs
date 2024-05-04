@@ -1,4 +1,4 @@
-namespace NyzoCL;
+namespace Nyzo.CL;
 
 public class NyzoStringPrefilledData {
     public byte[] ReceiverIdentifier {get;init;}
