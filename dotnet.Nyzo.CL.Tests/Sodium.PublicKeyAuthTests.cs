@@ -62,7 +62,7 @@ public class SodiumPublicKeyAuthTests {
 
 			// An additional ByteArrayToHex call is used to assure that an eventual conversion to hex string is also covered
 			Assert.Equal(vector.PublicSeedBytes.ByteArrayToHex(), sodiumKeyPair.PublicKey.ByteArrayToHex());
-			Assert.Equal(32, sodiumKeyPair.PublicKey.ByteArrayToHex().Length);
+			Assert.Equal(32, sodiumKeyPair.PublicKey.Length);
 		}
 	}
 
