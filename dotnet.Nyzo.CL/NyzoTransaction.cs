@@ -72,15 +72,11 @@ public class NyzoTransaction {
     public void Sign(byte[] seedBytes){
         var keyPair = Sodium.PublicKeyAuth.GenerateKeyPair(seedBytes);
 
-        for (var i = 0; i < 32; i++) {
-            this.SenderIdentifier[i] = keyPair.PublicKey[i];
-        }
+        this.SetSenderIdentifier(keyPair.PublicKey);
 
         var signature = Sodium.PublicKeyAuth.Sign(this.GetBytes(false)!, keyPair.PrivateKey);
 
-        for (var i = 0; i < 64; i++) {
-            this.Signature[i] = signature[i];
-        }
+        this.SetSignature(signature);
     }
 
     public byte[]? GetBytes(bool includeSignature){
@@ -119,10 +115,9 @@ public class NyzoTransaction {
     }
 
     public static NyzoTransaction FromBytes(byte[] array){
-        var buffer = new ByteBuffer(1000);
-        buffer.PutBytes(array);
-
+        var buffer = new ByteBuffer(array);
         var transaction = new NyzoTransaction();
+
         transaction.Type = buffer.ReadByte();
         transaction.SetTimestamp(DateTime.FromFileTimeUtc(buffer.ReadInt64()));
         transaction.SetAmount(buffer.ReadInt64());

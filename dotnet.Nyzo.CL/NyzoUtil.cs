@@ -94,11 +94,11 @@ public static class NyzoUtil {
         return false;
     }
 
-    public static bool IsValidPrivateKey(string keyString){
+    public static bool IsValidPrivateSeed(string seedString){
         var isValid = false;
 
-        keyString = keyString.Trim();
-        var key = NyzoStringEncoder.DecodePrivateSeed(keyString);
+        seedString = seedString.Trim();
+        var key = NyzoStringEncoder.DecodePrivateSeed(seedString);
         isValid = key is not null;
 
         return isValid;

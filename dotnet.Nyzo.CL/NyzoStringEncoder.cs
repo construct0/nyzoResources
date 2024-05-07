@@ -175,7 +175,7 @@ public static class NyzoStringEncoder {
         return encodedString;
     }
 
-    public static string EncodedNyzoString(string prefix, byte[] contentBytes){
+    private static string EncodedNyzoString(string prefix, byte[] contentBytes){
         // Get the prefix array from the type
         var prefixBytes = NyzoStringEncoder.ByteArrayForEncodedString(prefix);
 

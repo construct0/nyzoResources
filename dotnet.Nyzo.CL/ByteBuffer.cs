@@ -2,7 +2,6 @@
 
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 public class ByteBuffer : IDisposable {
@@ -85,7 +84,7 @@ public class ByteBuffer : IDisposable {
 	}
 
 	public override int GetHashCode() {
-		throw new NotImplementedException();
+		throw new NotSupportedException();
 	}
 
 	// Position
