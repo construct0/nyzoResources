@@ -56,13 +56,14 @@ public class SodiumPublicKeyAuthTests {
 	/// <see cref="NyzoConverter.PublicIdentifierForPrivateKey(string)"/> <see cref="NyzoTransaction.Sign(byte[])"/>
 	/// </summary>
 	[Fact]
-	public void GenerateKeyPair_FromPrivateKeyBytes_ShouldResultInCorrectKeyPair_AndPublicKeyBe32Chars() {
+	public void GenerateKeyPair_FromPrivateSeedBytes_ShouldResultInCorrectKeyPair_AndPublicKeyBe32Chars() {
 		foreach(var vector in this.Ed25519_RFC8032_TestVectors) {
 			var sodiumKeyPair = Sodium.PublicKeyAuth.GenerateKeyPair(vector.PrivateSeedBytes);
 
 			// An additional ByteArrayToHex call is used to assure that an eventual conversion to hex string is also covered
 			Assert.Equal(vector.PublicSeedBytes.ByteArrayToHex(), sodiumKeyPair.PublicKey.ByteArrayToHex());
 			Assert.Equal(32, sodiumKeyPair.PublicKey.Length);
+			Assert.Equal(64, sodiumKeyPair.PrivateKey.Length);
 		}
 	}
 
