@@ -88,14 +88,14 @@ public class NyzoTransaction {
         var buffer = new ByteBuffer(1000);
 
         buffer.PutByte(2); // transaction type = 2 (standard)
-        buffer.PutLong(this.Timestamp.ToFileTimeUtc());
-        buffer.PutLong(this.Amount);
+        buffer.PutInt64(this.Timestamp.ToFileTimeUtc());
+        buffer.PutInt64(this.Amount);
         buffer.PutBytes(this.RecipientIdentifier);
 
         if(forSigning){
             buffer.PutBytes(this.PreviousBlockHash);
         } else {
-            buffer.PutLong(this.PreviousHashHeight);
+            buffer.PutInt64(this.PreviousHashHeight);
         }
 
         buffer.PutBytes(this.SenderIdentifier);
@@ -107,7 +107,7 @@ public class NyzoTransaction {
                 )
             );
         } else {
-            buffer.PutInt(this.SenderData.Length);
+            buffer.PutInt32(this.SenderData.Length);
             buffer.PutBytes(this.SenderData);
         }
 
@@ -119,15 +119,15 @@ public class NyzoTransaction {
     }
 
     public static NyzoTransaction FromBytes(byte[] array){
-        var buffer = new ByteBuffer();
+        var buffer = new ByteBuffer(1000);
         buffer.PutBytes(array);
 
         var transaction = new NyzoTransaction();
         transaction.Type = buffer.ReadByte();
-        transaction.SetTimestamp(DateTime.FromFileTimeUtc(buffer.ReadLong()));
-        transaction.SetAmount(buffer.ReadLong());
+        transaction.SetTimestamp(DateTime.FromFileTimeUtc(buffer.ReadInt64()));
+        transaction.SetAmount(buffer.ReadInt64());
         transaction.SetRecipientIdentifier(buffer.ReadBytes(32));
-        transaction.SetPreviousHashHeight(buffer.ReadLong());
+        transaction.SetPreviousHashHeight(buffer.ReadInt64());
         transaction.SetSenderIdentifier(buffer.ReadBytes(32));
 
         var dataLength = buffer.ReadByte();
