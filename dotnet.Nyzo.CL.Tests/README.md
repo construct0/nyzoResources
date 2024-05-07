@@ -34,3 +34,15 @@ Template for new test function bodies:
 // Assert
 
 ```
+or
+```
+throw new NotImplementedException("todo");
+// Arrange
+
+
+// Act
+
+
+// Assert
+
+```

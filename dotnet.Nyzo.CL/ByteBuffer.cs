@@ -2,13 +2,44 @@
 
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
-public class ByteBuffer {
-	public byte[] Buffer { get; private set; }
+public class ByteBuffer : IDisposable {
+	private byte[] _buffer;
+
+	public byte[] Buffer {
+		get {
+			lock (_lock) {
+				return _buffer;
+			}
+		} 
+		private set { 
+			lock (_lock) {
+				_buffer = value;
+			}	
+		} 
+	}
+
 	public int Size => this.Buffer.Length;
 	public int Length => this.Size;
-	public int Position { get; set; } = 0;
+
+	private int _position = 0;
+
+	public int Position { 
+		get { 
+			lock (_lock) {
+				return _position;
+			}	
+		} 
+		set { 
+			lock (_lock) {
+				_position = value;
+			}	
+		} 
+	}
+
+	private object _lock = new();
 
 	public ByteBuffer(byte[] buffer) {
 		Buffer = buffer;
@@ -18,9 +49,22 @@ public class ByteBuffer {
 		Buffer = new byte[size];
 	}
 
+	public void Clear() {
+		this.Buffer = new byte[0];
+		this.Position = 0;
+	}
+
+	public void Dispose() {
+		this.Clear();
+	}
+
+	~ByteBuffer() {
+		this.Dispose();
+	}
+
 	// Compare
 	public bool IsEqualTo(ByteBuffer byteBuffer) {
-		if(this == byteBuffer) {
+		if (this == byteBuffer) {
 			throw new InvalidOperationException("Provide a unique ByteBuffer instance to compare with");
 		}
 
@@ -35,7 +79,9 @@ public class ByteBuffer {
 			return false;
 		}
 
-		return this.IsEqualTo((ByteBuffer)obj);
+		var instance = (ByteBuffer)obj;
+
+		return this.IsEqualTo(instance);
 	}
 
 	public override int GetHashCode() {
@@ -43,6 +89,7 @@ public class ByteBuffer {
 	}
 
 	// Position
+	// Only Put & Read functions are allowed to set the Position to a non-existing index
 	public void SetPosition(int position) {
 		if(position < 0 || position >= this.Size) {
 			throw new ArgumentOutOfRangeException($"Position must be a valid index");
@@ -165,10 +212,21 @@ public class ByteBuffer {
 		return value;
 	}
 
-	public string ReadString() {
+	public string ReadString(bool sanitized=true) {
 		int stringEnd = Array.IndexOf(Buffer, (byte)'\0', Position) + 1;
 		var value = Encoding.UTF8.GetString(Buffer, Position, stringEnd - Position);
 		Position += value.Length;
+
+		if (sanitized) {
+			// Any escapes during Put call are converted back to the separator
+			value = value.Replace("\\0", "\0");
+
+			// Any additions during Put call at the end of the string are removed to avoid "stacking" them during subsequent calls
+			// e.g. "Some text\0\0\0\0" after a few rounds of Put and Read calls
+			if(value.EndsWith("\0")) {
+				value = value[..(value.Length-1)];
+			}
+		}
 
 		return value;
 	}
@@ -253,6 +311,10 @@ public class ByteBuffer {
 	}
 
 	public void PutString(string value) {
+		// This is to avoid the following Replace call creating something like \\\0 after a round of Put and Read calls
+		value = value.Replace("\\0", "\0");
+
+		// This escapes all erroneous null char separators
 		value = value.Replace("\0", "\\0");
 
 		byte[] bytes = Encoding.UTF8.GetBytes(value + '\0');
