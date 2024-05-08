@@ -1,3 +1,6 @@
+using Nyzo.CL.Tests.@internal;
+using System;
+
 namespace Nyzo.CL.Tests;
 
 // References in NyzoConstants are assumed to be tested separately, this ensures the logic referencing them is also valid
@@ -6,16 +9,20 @@ public class NyzoConstantsTests {
 	[Fact]
 	public void GenesisBlockHash_ShouldConvertBackToSameHexString() {
 		// Arrange
-		byte[] genesisBlockHash = NyzoConstants.GenesisBlockHash;
-		char[] genesisBlockHashArray = NyzoConstants.GenesisBlockHashHexString.Replace("-", "").ToCharArray();
-
-		// Act
-		string genesisBlockHashString = BitConverter.ToString(genesisBlockHash);
+		byte[] coreGenesisBlockHash = NyzoConstants.GenesisBlockHash;
+		byte[] testGenesisBlockHash = NyzoConstants.GenesisBlockHashString.HexToByteArray();
 
 		// Assert
-		for (var i = 0; i<genesisBlockHashArray.Length; i++) {
-			Assert.Equal(genesisBlockHashArray[i], genesisBlockHashString[i]);
+		Assert.Equal(coreGenesisBlockHash.Length,testGenesisBlockHash.Length);
+
+		for (var i = 0; i<testGenesisBlockHash.Length; i++) {
+			Assert.Equal(testGenesisBlockHash[i], coreGenesisBlockHash[i]);
 		}
+
+		string coreGenesisBlockHashString = coreGenesisBlockHash.ByteArrayToHex();
+		string testGenesisBlockHashString = testGenesisBlockHash.ByteArrayToHex();
+
+		Assert.Equal(coreGenesisBlockHashString, testGenesisBlockHashString);
 	}
 
 	[Fact]

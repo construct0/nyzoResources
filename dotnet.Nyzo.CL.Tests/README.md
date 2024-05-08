@@ -23,7 +23,7 @@ The version of this project indicates which version of the Nyzo.CL project it be
 
 
 
-Template for new test function bodies:
+Optional template for new test function bodies:
 ```
 // Arrange
 
@@ -46,3 +46,4 @@ throw new NotImplementedException("todo");
 // Assert
 
 ```
+This strict order can be deviated from if all three occur at some point in the test.
