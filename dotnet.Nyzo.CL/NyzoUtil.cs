@@ -14,8 +14,8 @@ public static class NyzoUtil {
         var array = new byte[identifier.Length / 2];
 
         for (var i = 0; i < array.Length; i++) {
-            array[i] = Convert.ToByte(identifier.Substring(i * 2, i * 2 + 2), 16);
-        }
+            array[i] = Convert.ToByte(identifier.Substring(i * 2, 2), 16);
+		}
 
         return array;
     }
