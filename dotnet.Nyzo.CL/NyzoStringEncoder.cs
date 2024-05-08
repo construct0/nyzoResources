@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace Nyzo.CL;
 
 public static class NyzoStringEncoder {
-    public static string[] CharacterLookup => ("0123456789" + "abcdefghijkmnopqrstuvwxyz" + "ABCDEFGHIJKLMNPQRSTUVWXYZ" + "-.~_").Split("");
+    public static char[] CharacterLookup => ("0123456789" + "abcdefghijkmnopqrstuvwxyz" + "ABCDEFGHIJKLMNPQRSTUVWXYZ" + "-.~_").ToArray();
 
     public static Dictionary<char, int> CharacterToValueDict {get {
         var characterLookup = NyzoStringEncoder.CharacterLookup;
