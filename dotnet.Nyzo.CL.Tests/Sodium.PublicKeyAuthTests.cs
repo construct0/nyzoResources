@@ -13,7 +13,7 @@ namespace Nyzo.CL.Tests;
 /// </summary>
 [Collection("SodiumCore.PublicKeyAuth.Tests.Sequential")]
 public class SodiumPublicKeyAuthTests {
-	private List<CryptographicInlineData> Ed25519_RFC8032_TestVectors { get; init; }
+	internal List<CryptographicInlineData> Ed25519_RFC8032_TestVectors { get; init; }
 
 	public SodiumPublicKeyAuthTests() {
 		// https://datatracker.ietf.org/doc/html/rfc8032#section-7.1
