@@ -6,7 +6,7 @@ namespace Nyzo.CL;
 public class NyzoTransaction {
     public DateTime Timestamp {get;private set;}
     public short Type {get;private set;}
-    public long Amount {get;private set;}
+    public long Amount {get;private set;} // micro nyzos
     public byte[] RecipientIdentifier {get;private set;}
     public long PreviousHashHeight {get;private set;}
     public byte[] PreviousBlockHash {get;private set;}
@@ -15,9 +15,9 @@ public class NyzoTransaction {
     public byte[] Signature {get;private set;}
 
     public NyzoTransaction(){
-        this.Timestamp = DateTime.Now;
-        this.Type = 2;
-        this.Amount = 0L;
+        this.Timestamp = DateTime.Now.ToUniversalTime();
+        this.Type = 2; // transaction type = 2 (standard)
+		this.Amount = 0L;
         this.RecipientIdentifier = new byte[32];
         this.PreviousHashHeight = 0;
         this.PreviousBlockHash = new byte[32];
@@ -27,7 +27,7 @@ public class NyzoTransaction {
     }
 
     public void SetTimestamp(DateTime timestamp){
-        this.Timestamp = timestamp;
+        this.Timestamp = timestamp.ToUniversalTime();
     }
 
     public void SetAmount(long amount){
@@ -79,11 +79,14 @@ public class NyzoTransaction {
         this.SetSignature(signature);
     }
 
-    public byte[]? GetBytes(bool includeSignature){
+    public byte[] GetBytes(bool includeSignature){
         var forSigning = !includeSignature;
         var buffer = new ByteBuffer(1000);
 
-        buffer.PutByte(2); // transaction type = 2 (standard)
+        // Not sure why this was hardcoded while the Type property exists, replaced with reference
+        // buffer.PutByte(2); // transaction type = 2 (standard)
+        buffer.PutByte((byte)this.Type);
+        
         buffer.PutInt64(this.Timestamp.ToFileTimeUtc());
         buffer.PutInt64(this.Amount);
         buffer.PutBytes(this.RecipientIdentifier);
@@ -97,13 +100,11 @@ public class NyzoTransaction {
         buffer.PutBytes(this.SenderIdentifier);
 
         if(forSigning){
-            buffer.PutBytes(
-                NyzoUtil.DoubleSha256(
-                    this.SenderData
-                )
-            );
+            var doubleShaSenderDataBytes = NyzoUtil.DoubleSha256(this.SenderData);
+
+            buffer.PutBytes(doubleShaSenderDataBytes);
         } else {
-            buffer.PutInt32(this.SenderData.Length);
+            buffer.PutByte((byte)this.SenderData.Length);
             buffer.PutBytes(this.SenderData);
         }
 
@@ -114,6 +115,9 @@ public class NyzoTransaction {
         return buffer.ReadBytes();
     }
 
+    /// <summary>
+    /// Using content from GetBytes output as an argument here does not mean you will have an identical object, refer to Nyzo.CL.Tests.NyzoTransactionTests
+    /// </summary>
     public static NyzoTransaction FromBytes(byte[] array){
         var buffer = new ByteBuffer(array);
         var transaction = new NyzoTransaction();
