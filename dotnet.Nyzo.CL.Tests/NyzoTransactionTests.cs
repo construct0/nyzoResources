@@ -20,7 +20,7 @@ public class NyzoTransactionTests {
 
 		// Seconds will be stripped to be able to check whether both this and the timestamp assigned during init are reasonably equal
 		// The while() halt assures that both the defaultTimestamp and tx are created in the same minute, to avoid the rare possibility that this test fails due to the DateTimes being created with a different Minute
-		while (DateTime.Now.Second < 1) { }
+		while (DateTime.Now.Second < 1 || DateTime.Now.Second > 58) { }
 		var defaultTimestamp = DateTime.Now;
 
 		// Act
