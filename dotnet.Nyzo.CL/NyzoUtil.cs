@@ -8,7 +8,7 @@ namespace Nyzo.CL;
 
 // Untested - todo
 public static class NyzoUtil {
-    public static byte[] HexStringAsUint8Array(string identifier){
+    public static byte[] HexStringAsByteArray(string identifier){
         identifier = identifier.Replace("-", "");
 
         var array = new byte[identifier.Length / 2];
@@ -21,22 +21,22 @@ public static class NyzoUtil {
     }
 
     // Ignored: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1850
-    public static byte[] Sha256Uint8(byte[] array){
+    public static byte[] ByteArrayAsSha256ByteArray(byte[] array){
         using(SHA256 sha256 = SHA256.Create()){
             byte[] hashBytes = sha256.ComputeHash(array);
             string hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 
-            return NyzoUtil.HexStringAsUint8Array(hashString);
+            return NyzoUtil.HexStringAsByteArray(hashString);
         }
     }
 
-    public static byte[] DoubleSha256(byte[] array){
-        return NyzoUtil.Sha256Uint8(
-            NyzoUtil.Sha256Uint8(array)
+    public static byte[] ByteArrayAsDoubleSha256ByteArray(byte[] array){
+        return NyzoUtil.ByteArrayAsSha256ByteArray(
+            NyzoUtil.ByteArrayAsSha256ByteArray(array)
         );
     }
 
-    public static byte[] SenderDataAsUint8Array(string senderData){
+    public static byte[] SenderDataAsByteArray(string senderData){
         // Process normalized sender-data strings
         byte[]? array = null;
 
@@ -67,7 +67,7 @@ public static class NyzoUtil {
 
                 // If all characters are correct, decode the data. Otherwise, leave the result null to indicate that the input is not a valid sender-data string.
                 if(allAreCorrect){
-                    array = NyzoUtil.HexStringAsUint8Array(senderData.Substring(2, 2 + dataLength * 2));
+                    array = NyzoUtil.HexStringAsByteArray(senderData.Substring(2, 2 + dataLength * 2));
                 }
             }
         }

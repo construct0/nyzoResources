@@ -63,7 +63,7 @@ public static class NyzoStringEncoder {
 
         var calculatedChecksum =
             NyzoStringEncoder.ProvideSubArray(
-                NyzoUtil.DoubleSha256(
+                NyzoUtil.ByteArrayAsDoubleSha256ByteArray(
                     NyzoStringEncoder.ProvideSubArray(expandedArray, 0, headerLength + contentLength)
                 ),
                 0,
@@ -196,7 +196,7 @@ public static class NyzoStringEncoder {
         }
 
         // Compute the checksum and add the appropriate number of bytes to the end of the array
-        var checksum = NyzoUtil.DoubleSha256(
+        var checksum = NyzoUtil.ByteArrayAsDoubleSha256ByteArray(
             NyzoStringEncoder.ProvideSubArray(expandedArray, 0, 4 + contentBytes.Length)
         );
 

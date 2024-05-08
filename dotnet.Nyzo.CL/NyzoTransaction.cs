@@ -100,7 +100,7 @@ public class NyzoTransaction {
         buffer.PutBytes(this.SenderIdentifier);
 
         if(forSigning){
-            var doubleShaSenderDataBytes = NyzoUtil.DoubleSha256(this.SenderData);
+            var doubleShaSenderDataBytes = NyzoUtil.ByteArrayAsDoubleSha256ByteArray(this.SenderData);
 
             buffer.PutBytes(doubleShaSenderDataBytes);
         } else {
