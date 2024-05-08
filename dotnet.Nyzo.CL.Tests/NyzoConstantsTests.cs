@@ -1,3 +1,5 @@
+using System;
+
 namespace Nyzo.CL.Tests;
 
 // References in NyzoConstants are assumed to be tested separately, this ensures the logic referencing them is also valid
