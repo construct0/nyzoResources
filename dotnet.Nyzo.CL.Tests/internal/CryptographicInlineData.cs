@@ -13,7 +13,20 @@ internal record CryptographicInlineData
     public byte[] MessageBytes { get; init; }
     public byte[] ExpectedSignatureBytes { get; init; }
 
-    public CryptographicInlineData(string privateSeed, string publicSeed, string message, string expectedSignature)
+	#region NyzoString 
+	// Any and all NyzoString properties' values set in the test project were obtained by converting the IETF test vectors to NyzoStrings using the NyzoSpace tool
+	// https://angainordev.github.io/NyzoSpace/js/dist/convert.html
+	// https://github.com/AngainorDev/NyzoSpace
+	public string? NyzoStringPublicIdentifier { get; init; }
+    public string? NyzoStringPrivateKey { get; init; }
+
+    public CryptographicInlineData(string privateSeed, string nyzoStringPrivateKey, string publicSeed, string nyzoStringPublicIdentifier, string message, string expectedSignature) : this(privateSeed, publicSeed, message, expectedSignature) {
+        this.NyzoStringPrivateKey = nyzoStringPrivateKey;
+        this.NyzoStringPublicIdentifier = nyzoStringPublicIdentifier;
+    }
+	#endregion
+
+	public CryptographicInlineData(string privateSeed, string publicSeed, string message, string expectedSignature)
     {
         Func<string, string> cleanHex = (i) =>
         {
