@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace Nyzo.CL;
 
@@ -21,11 +22,11 @@ public class NyzoConverter {
 
     public static string GetDisplayAmount(double amount, bool isMicroNyzos=true){
         var division = isMicroNyzos ? 1000000 : 1;
-        return "&cap;" + (amount / division).ToString("N6");
+        return "&cap;" + (amount / division).ToString("N6", CultureInfo.InvariantCulture);
     }
 
     public static double GetAmountOfMicroNyzos(string valueString){
-        return Math.Floor(double.Parse(valueString) * NyzoConstants.MicroNyzosPerNyzo);
+        return Math.Floor(double.Parse(valueString, CultureInfo.InvariantCulture) * NyzoConstants.MicroNyzosPerNyzo);
     }
 }
 
