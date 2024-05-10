@@ -8,6 +8,8 @@ public static class NyzoConstants {
 	public static byte[] GenesisBlockHash => NyzoUtil.HexStringAsByteArray(NyzoConstants.GenesisBlockHashString);
 
     public static int MicroNyzosPerNyzo => 1000000;
+    public static long TotalNyzosAvailable => 100_000_000;
+    public static long TotalMicroNyzosAvailable => NyzoConstants.MicroNyzosPerNyzo * NyzoConstants.TotalNyzosAvailable;
 
     public static int MaximumSenderDataLength => 32;
 
