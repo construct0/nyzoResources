@@ -15,20 +15,19 @@ public static class NyzoUtil {
 
         for (var i = 0; i < array.Length; i++) {
             array[i] = Convert.ToByte(identifier.Substring(i * 2, 2), 16);
-		}
+        }
 
         return array;
     }
 
-    // Ignored: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1850
-    public static byte[] ByteArrayAsSha256ByteArray(byte[] array){
-        using(SHA256 sha256 = SHA256.Create()){
-            byte[] hashBytes = sha256.ComputeHash(array);
-            string hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+	// Ignored: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1850
+	public static byte[] ByteArrayAsSha256ByteArray(byte[] array) {
+		using (SHA256 sha256 = SHA256.Create()) {
+			byte[] hashBytes = sha256.ComputeHash(array);
 
-            return NyzoUtil.HexStringAsByteArray(hashString);
-        }
-    }
+            return hashBytes;
+		}
+	}
 
     public static byte[] ByteArrayAsDoubleSha256ByteArray(byte[] array){
         return NyzoUtil.ByteArrayAsSha256ByteArray(
@@ -36,7 +35,12 @@ public static class NyzoUtil {
         );
     }
 
-    public static byte[] SenderDataAsByteArray(string senderData){
+	/// <summary>
+	/// Argument should be a UTF-8 sender data string. Conversion is case-insensitive for a normalized sender data string.
+	/// </summary>
+	/// <param name="senderData">UTF-8 sender data string</param>
+	/// <returns>A byte array, the content of the byte array depends on whether the sender data is normalized or not. (https://tech.nyzo.org/dataFormats/normalizedSenderDataString)</returns>
+	public static byte[] SenderDataAsByteArray(string senderData){
         // Process normalized sender-data strings
         byte[]? array = null;
 
@@ -56,7 +60,7 @@ public static class NyzoUtil {
                 // Ensure that all characters in the data field are correct. The left section must be all alphanumeric, and the right section must be underscores. The string was converted to lowercase.
                 var allAreCorrect = true;
 
-                for(var i=0; i<66 && allAreCorrect; i++){
+                for(var i=2; i<66 && allAreCorrect; i++){
                     // This could be written more succinctly, but it would be more difficult to read
                     if(i < underscoreIndex){
                         allAreCorrect = (lowercase[i] >= '0' && lowercase[i] <= '9') || (lowercase[i] >= 'a' && lowercase[i] <= 'f');
@@ -65,27 +69,52 @@ public static class NyzoUtil {
                     }
                 }
 
+                if (allAreCorrect) {
+                    var amtUnderScores = senderData.ToList().Where(x => x == '_').Count();
+
+                    // The amount of characters on the left and right side (data and underscores) should be divisible by 2, the presence of 0 underscores indicates that the entire 64 character span has been utilized by hexadecimal characters
+                    if(amtUnderScores > 0 && (amtUnderScores % 2) != 0) {
+                        allAreCorrect = false;
+                    }
+				}
+
                 // If all characters are correct, decode the data. Otherwise, leave the result null to indicate that the input is not a valid sender-data string.
                 if(allAreCorrect){
-                    array = NyzoUtil.HexStringAsByteArray(senderData.Substring(2, 2 + dataLength * 2));
+                    array = NyzoUtil.HexStringAsByteArray(senderData.Substring(2, dataLength * 2));
                 }
             }
         }
 
         // If processing of a normalized sender-data string did not produce a result, process as a plain-text string
-        array ??= Encoding.Unicode.GetBytes(senderData, 0, Math.Min(senderData.Length, 32));
+        array ??= Encoding.UTF8.GetBytes(senderData, 0, Math.Min(senderData.Length, 32));
 
         return array;
     }
 
-    public static bool IsValidAmountOfMicroNyzos(object value){
+    public static bool IsValidAmountOfNyzos(object? value) {
+		if (value is not null && value is IConvertible) {
+			bool canParse = double.TryParse(value.ToString(), out _);
+
+			if (canParse) {
+				var parsedValue = double.Parse(value.ToString()!);
+
+				if (!(parsedValue < NyzoConstants.MinimumTransactionAmount || parsedValue > NyzoConstants.TotalNyzosAvailable)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+    public static bool IsValidAmountOfMicroNyzos(object? value){
         if(value is not null && value is IConvertible){
-            bool canParse = double.TryParse(value.ToString(), out _);
+            bool canParse = long.TryParse(value.ToString(), out _);
 
             if(canParse){
-                var parsedValue = double.Parse(value.ToString()!);
+                var parsedValue = long.Parse(value.ToString()!);
 
-                if(!(parsedValue < NyzoConstants.MinimumTransactionAmount)){
+                if(!(parsedValue < 1 || parsedValue > NyzoConstants.TotalMicroNyzosAvailable)){
                     return true;
                 }
             }
@@ -114,17 +143,24 @@ public static class NyzoUtil {
         return isValid;
     }
 
-    public static bool IsValidSignedMessage(string signedMessageString, string publicIdentifierString){
-        publicIdentifierString = publicIdentifierString.Trim();
-        var identifier = NyzoStringEncoder.DecodePublicIdentifier(publicIdentifierString);
-        var signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
+    public static bool IsValidSignedMessage(string signedMessage, string publicIdentifier) {
+        publicIdentifier = publicIdentifier.Trim();
 
-        if(identifier?.Identifier is null || signedMessage is null){
+        return NyzoUtil.IsValidSignedMessage(
+            NyzoUtil.HexStringAsByteArray(signedMessage),
+			publicIdentifier.StartsWith("id__")
+            ? NyzoStringEncoder.DecodePublicIdentifier(publicIdentifier)?.Identifier ?? new byte[0]
+            : NyzoUtil.HexStringAsByteArray(publicIdentifier)
+        );
+    }
+
+    public static bool IsValidSignedMessage(byte[]? signedMessage, byte[] publicIdentifier){
+        if(signedMessage is null){
             return false;
         }
 
         try {
-            Sodium.PublicKeyAuth.Verify(signedMessage, identifier.Identifier);
+            Sodium.PublicKeyAuth.Verify(signedMessage, publicIdentifier);
         } catch {
             return false;
         }
@@ -133,33 +169,36 @@ public static class NyzoUtil {
     }
 
     // This assumes you called IsValidSignedMessage already
-    public static byte[] GetSignedMessageContent(string signedMessageString, string publicIdentifierString){
-        publicIdentifierString = publicIdentifierString.Trim();
-        var identifier = NyzoStringEncoder.DecodePublicIdentifier(publicIdentifierString);
-        var signedMessage = NyzoStringEncoder.ByteArrayForEncodedString(signedMessageString);
+    public static byte[] GetSignedMessageContent(string signedMessage, string publicIdentifier){
+		publicIdentifier = publicIdentifier.Trim();
 
-        if(identifier?.Identifier is null || signedMessage is null){
-            throw new ArgumentException("[0]: Could not get content, validate your arguments with NyzoUtil.IsValidSignedMessage first");
-        }
+		return NyzoUtil.GetSignedMessageContent(
+			NyzoUtil.HexStringAsByteArray(signedMessage),
+			publicIdentifier.StartsWith("id__")
+			? NyzoStringEncoder.DecodePublicIdentifier(publicIdentifier)?.Identifier ?? new byte[0]
+			: NyzoUtil.HexStringAsByteArray(publicIdentifier)
+		);
+	}
 
+	public static byte[] GetSignedMessageContent(byte[] signedMessage, byte[] publicIdentifier) {
         try {
-            return Sodium.PublicKeyAuth.Verify(signedMessage, identifier.Identifier);
-        } catch {
-            throw new CryptographicException("[1]: Could not get content, validate your arguments with NyzoUtil.IsValidSignedMessage first");
+            return Sodium.PublicKeyAuth.Verify(signedMessage, publicIdentifier);
+		} catch(CryptographicException e) {
+            throw new InvalidOperationException("Validate the message first", e);
         }
-    }
+	}
 
-    // This is not a robust check for valid/invalid URLs. It is just a check to ensure that the provided URL is somewhat reasonable for use as a client URL.
-    public static bool IsValidClientURL(string clientUrl){
+	// This is not a robust check for valid/invalid URLs. It is just a check to ensure that the provided URL is somewhat reasonable for use as a client URL.
+	public static bool IsValidClientURL(string clientUrl){
         var isValid = false;
 
         clientUrl = clientUrl.Trim();
         isValid = 
             (clientUrl.StartsWith("http://") || clientUrl.StartsWith("https://")) 
-            && !clientUrl.Contains('<') 
-            && !clientUrl.Contains('>') 
-            && !clientUrl.Contains('?') 
-            && !clientUrl.Contains(' ') 
+            && !clientUrl.Contains('<')
+            && !clientUrl.Contains('>')
+            && !clientUrl.Contains('?')
+            && !clientUrl.Contains(' ')
             && !clientUrl.Contains('%')
             ;
 
