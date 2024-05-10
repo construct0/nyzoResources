@@ -8,6 +8,7 @@ internal static class ByteArrayExtensions
     {
         return BitConverter.ToString(array)
                            .Replace("-", "")
+                           .ToLower()
                            ;
     }
 }
