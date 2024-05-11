@@ -1,0 +1,111 @@
+<mxfile host="Electron" modified="2024-05-11T18:25:52.035Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="b262La8jzmwGhfERE7hU" version="24.2.5" type="device">
+  <diagram name="Page-1" id="4J5jO7RefVaEEBJmN482">
+    <mxGraphModel dx="2993" dy="1901" grid="0" gridSize="5" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uOYiliv3CCgEoweYgntA-7" value="&lt;div style=&quot;font-size: 19px;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=right;" vertex="1" parent="1">
+          <mxGeometry x="-165.5" y="-118" width="821.5" height="1364" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-20" value="" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
+          <mxGeometry x="-612" y="312" width="405" height="602" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-6" value="&lt;b&gt;Verifier:main&lt;/b&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;perimeterSpacing=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="-100" width="120" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-2" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;t&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="-867" y="-463" width="280" height="215" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-4" value="&lt;div style=&quot;&quot;&gt;&lt;b style=&quot;background-color: initial; font-size: 17px;&quot;&gt;&lt;i&gt;Context - 11/05/2024&lt;/i&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;last version release by nyzo team: v642&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;last version release by construct0: v644.9&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;gt;70% of incycle verifiers have no running instance&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;gt;99% of incycle verifiers did not adopt v644&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;last block produced by &amp;lt; v644 nodes on 14/12/2023 (23530693)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;extra blocks produced by v644 nodes&lt;/span&gt;&lt;/li&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;25/01/2024 (&lt;/span&gt;23530694)&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;16/02/2024 (&lt;/span&gt;23530695)&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;16/02/2024 (&lt;/span&gt;23530696)&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;16/02/2024 (&lt;/span&gt;23530697)&lt;/li&gt;&lt;/ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Communication is scarce and unverifiable, only a small group of chat participants&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Creating new nyzo verifier instances today, without manually providing them with files from an active node, fails in multiple ways&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;nyzo.co infra offline since 15/02/24&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;i&gt;This workspace contains operations performed / logic flow of a verifier which is starting up, unimportant things are omitted&lt;/i&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="-612" y="-118" width="405" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-5" value="&lt;b&gt;ttt&lt;/b&gt;&lt;div&gt;t&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-617" y="-339" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-8" value="&lt;b&gt;BlockManager:initialize&lt;/b&gt;&lt;br&gt;&lt;div&gt;creates block directories, attempts to&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;load genesis block but fails&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="-60" width="573" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-13" value="&lt;b&gt;Verifier:start&lt;/b&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="-9" width="125" height="984" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-14" value="&lt;b&gt;Verifier:loadGenesisBlock&lt;/b&gt;&lt;br&gt;&lt;div&gt;gets URL from&lt;br&gt;&lt;i&gt;SeedTransactionManager&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;&lt;br&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;fails to fetch, keeps retrying&amp;nbsp;&lt;/div&gt;&lt;div&gt;ad infinitum&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="31" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-16" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC0000;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="165" y="66" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-17" value="&lt;b&gt;SeedTransactionManager:start&lt;/b&gt;&lt;div&gt;tries to fetch seed txs&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;fails, keeps retrying&amp;nbsp;&lt;/div&gt;&lt;div&gt;ad infinitum&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="151" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-18" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;2&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC0000;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="165" y="186" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-19" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC0000;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="-582" y="357" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-21" value="Add the individual nyzoblock from one of your instances in the blocks/individual folder&lt;div&gt;Applying the preference override &lt;br&gt;from problem #2&#39;s solution is not sufficient (cf. trello)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-527" y="362" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-22" value="&lt;div&gt;&lt;span style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;&lt;i&gt;problem #&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;manual solution&lt;/i&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;ul&gt;&lt;/ul&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-612" y="322" width="405" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-23" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;2&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC0000;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="-582" y="422" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-24" value="Add line to preferences, overriding the nyzo.co default&lt;div&gt;&lt;i&gt;seed_transaction_base_url=https://seed.nyzo.org&lt;/i&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-527" y="422" width="305" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-26" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-806" y="-342" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-27" value="&lt;b&gt;Verifier:fetchMesh&lt;/b&gt;&lt;div&gt;&lt;b&gt;Verifier:sendNodeJoinMessage&lt;br&gt;&lt;/b&gt;&lt;div&gt;contacts trusted entry points, receives list of nodes&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;sends NodeJoin message to trusted entry points&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="271" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-28" value="&lt;div&gt;&lt;b&gt;NodeManager:sendNodeJoinRequests&lt;/b&gt;&lt;/div&gt;&lt;div&gt;sends NodeJoin message to nodes&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="411" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-29" value="&lt;b&gt;ChainInitializationManager:initializeFrozenEdge&lt;/b&gt;&lt;div&gt;contacts trusted entry points, receives bootstrap responses&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;waits 5s and determines which bootstrap response&#39;s content is &lt;u&gt;the most common&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;hr&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;If the instance is running v644 and the trusted entry points in your list respond with bootstrap responses for which the frozenEdgeHeight is smaller than those of v644 nodes (as is the case, see context)&lt;br&gt;&lt;br&gt;Then the instance does not consider the higher frozen edge as valid, yet&lt;/i&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="491" width="300" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-30" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;3&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC6D00;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="-582" y="487" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-31" value="Limit the entries in the trusted entry points list (temporarily) to nodes running v644, if you wish to accept and adopt the difference in frozen edge block height and cycle length" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-527" y="472" width="305" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="uOYiliv3CCgEoweYgntA-32" target="uOYiliv3CCgEoweYgntA-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-32" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;3&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC6D00;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="265" y="666" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-34" value="contacts trusted entry points until atleast &amp;gt;50% of the incycle identifiers have an active instance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-50" y="791" width="105" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-35" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;4&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC0000;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="50" y="826" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="uOYiliv3CCgEoweYgntA-38" target="uOYiliv3CCgEoweYgntA-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="165" y="812.2499999999995" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-38" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;v644 agressively enforces performance score removals,&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;due to having advanced by 4 blocks, not only the frozen edge height differs, but also the amount of incycle verifiers&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;&lt;b&gt;problem 4 is exacerbated by accepting a &amp;lt;v644 bootstrap response while intentionally deciding to adopt and run a v644 instance (problem 3),&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;the odds of meeting the &amp;gt;50% barrier are higher when accepting the v644 bootstrap, due to the smaller amount of incycle verifiers&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;opacity=60;strokeColor=none;fillColor=#dae8fc;verticalAlign=top;align=right;" vertex="1" parent="1">
+          <mxGeometry x="165" y="761" width="441" height="158" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-42" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;4&lt;/font&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FC0000;strokeColor=none;fontColor=#FFFAFA;" vertex="1" parent="1">
+          <mxGeometry x="-582" y="552" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-43" value="(&amp;lt; v644) Stay stuck until incycle verifiers become active again and slowly drop inactive nodes, which&#39;d be a large demand (many cycles) for a network in poor health &lt;br&gt;&lt;br&gt;(75% of incycle verifiers&#39; block votes required for 1 block to be produced)&lt;br&gt;(1 inactive incycle verifier can be dropped per cycle iteration if said verifier produces no block)&lt;div&gt;~= e.g. removing 100 nodes would require &amp;gt;100,000 blocks to be produced&lt;br&gt;&lt;div&gt;&lt;hr&gt;&lt;/div&gt;&lt;div&gt;(v644)&amp;nbsp;&lt;br&gt;(75% down to &amp;gt;50% if production fails for some time, of incycle verifiers&#39; block votes required for 1 block to be produced)&lt;/div&gt;&lt;/div&gt;&lt;div&gt;(unlimited amount of inactive incycle verifiers can be dropped for each block being produced -- if the open edge height indicates a gap of at least 12342 blocks when compared against the frozen edge height -- if previously a 0 block gap; then this would occur after 24h of stalling)&lt;/div&gt;&lt;div&gt;~= e.g. removing 100 nodes would require, at most, one cycle iteration of blocks to be produced (removed when no block is produced)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-527" y="552" width="305" height="345" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-44" value="&lt;b&gt;Verifier:verifierMain&lt;/b&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;....&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="919" width="125" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="uOYiliv3CCgEoweYgntA-45" value="&lt;div style=&quot;text-align: right; font-size: 19px;&quot;&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;New nyzoVerifier instance, first run&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: right; font-size: 19px;&quot;&gt;&lt;b&gt;Coupled to an incycle identifier&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="265" y="24" width="354" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
