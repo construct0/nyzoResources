@@ -1,1 +1,1 @@
-Untested. Use at your own risk.
+[View README.md](https://github.com/construct0/nyzoResources/blob/main/README.md)
