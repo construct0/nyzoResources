@@ -90,7 +90,6 @@ public class ByteBufferTests {
 		Assert.Equal(1, byteBuffer.Position);
 	}
 
-	// todo if exc : add extra ToArray if the byte arrays are mutated within ByteBuffer/MemoryStream
 	[Fact]
 	public void Constructing_OrPuttingBytes_ShouldAllowForRetrieval_ByOne_ByGivenAmount_OrAllAtOnce() {
 		// Arrange

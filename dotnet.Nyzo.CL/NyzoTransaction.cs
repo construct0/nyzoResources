@@ -1,7 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace Nyzo.CL;
 
+/// <summary>
+/// As of now, only transaction type 2 is supported.
+/// </summary>
 public class NyzoTransaction {
     public DateTime Timestamp {get;private set;}
     public short Type {get;private set;}
@@ -73,24 +78,95 @@ public class NyzoTransaction {
 
         this.SetSenderIdentifier(keyPair.PublicKey);
 
-        var signature = Sodium.PublicKeyAuth.Sign(this.GetBytes(false)!, keyPair.PrivateKey);
+        var signature = Sodium.PublicKeyAuth.Sign(this.GetBytes(true)!, keyPair.PrivateKey);
 
         this.SetSignature(signature);
     }
 
-    public byte[] GetBytes(bool includeSignature){
-        var forSigning = !includeSignature;
-        var buffer = new ByteBuffer(1000);
+    public int GetByteSize(bool forSigning = false) {
+		// All transactions begin with a type and timestamp.
+		int size = 
+            FieldByteSize.TransactionType 
+            + FieldByteSize.Timestamp
+            ;
 
-        // Not sure why this was hardcoded while the Type property exists, replaced with reference
-        // buffer.PutByte(2); // transaction type = 2 (standard)
+        //if (type == typeCycleSignature) {
+        //	size += FieldByteSize.identifier +          // verifier (signer) identifier
+        //			FieldByteSize.booleanField +        // yes/no
+        //			FieldByteSize.signature;            // cycle transaction signature
+        //	if (!forSigning) {
+        //		size += FieldByteSize.signature;        // signature
+        //	}
+        //} else {
+
+        size +=
+            FieldByteSize.TransactionAmount
+            + FieldByteSize.Identifier // receiver identifier
+            ;
+        //}
+
+        //if (type == typeSeed || type == typeStandard || type == typeCycle) {
+
+        if (forSigning) {
+            size += FieldByteSize.Hash; // previous blockhash for signing
+        } else {
+            size += FieldByteSize.BlockHeight; // previous-hash height for storage and transmission
+		}
+
+        size += FieldByteSize.Identifier; // sender identifier
+
+        if (forSigning) {
+            size += FieldByteSize.Hash; // sender data hash for signing
+        } else {
+            size +=
+                1 // length specifier
+                + this.SenderData.Length // sender data
+                + FieldByteSize.Signature // transaction signature
+                ;
+
+			//if (type == typeCycle) {
+			//	// These are stored differently in the v1 and v2 blockchains. The cycleSignatures field is used for
+			//	// the v1 blockchain, and the cycleSignatureTransactions field is used for the v2 blockchain.
+			//	if (cycleSignatures != null && !cycleSignatures.isEmpty()) {
+			//		// The v1 blockchain stores identifier and signature for each.
+			//		size += FieldByteSize.unnamedInteger + cycleSignatures.size() * (FieldByteSize.identifier +
+			//				FieldByteSize.signature);
+			//	} else {
+			//		// The v2 blockchain stores timestamp, identifier, vote, and signature for each.
+			//		size += FieldByteSize.unnamedInteger + cycleSignatureTransactions.size() *
+			//				(FieldByteSize.timestamp + FieldByteSize.identifier + FieldByteSize.booleanField +
+			//						FieldByteSize.signature);
+
+			//	}
+			//}
+		}
+
+		return size;
+	}
+
+    public byte[] GetBytes(bool forSigning=false){
+        var array = new byte[this.GetByteSize(forSigning)];
+        var buffer = new ByteBuffer(array);
+
         buffer.PutByte((byte)this.Type);
-        
         buffer.PutInt64(this.Timestamp.ToFileTimeUtc());
-        buffer.PutInt64(this.Amount);
-        buffer.PutBytes(this.RecipientIdentifier);
 
-        if(forSigning){
+		//if (type == typeCoinGeneration || type == typeSeed || type == typeStandard || type == typeCycle) {
+		buffer.PutInt64(this.Amount);
+		buffer.PutBytes(this.RecipientIdentifier);
+        //} else if (type == typeCycleSignature) {
+        //	buffer.put(senderIdentifier);
+        //	buffer.put(cycleTransactionVote);
+        //	buffer.put(cycleTransactionSignature);
+        //	if (!forSigning) {
+        //		buffer.put(signature);
+        //	}
+        //}
+
+        //--
+        //if (type == typeSeed || type == typeStandard || type == typeCycle) {
+
+        if (forSigning) {
             buffer.PutBytes(this.PreviousBlockHash);
         } else {
             buffer.PutInt64(this.PreviousHashHeight);
@@ -98,7 +174,8 @@ public class NyzoTransaction {
 
         buffer.PutBytes(this.SenderIdentifier);
 
-        if(forSigning){
+        // For serializing, we use the raw sender data with a length specifier. For signing, we use the double-SHA-256 of the user data. This will allow us to remove inappropriate or illegal metadata from the blockchain at a later date by replacing it with its double-SHA-256 without compromising the signature integrity.
+        if (forSigning) {
             var doubleShaSenderDataBytes = NyzoUtil.ByteArrayAsDoubleSha256ByteArray(this.SenderData);
 
             buffer.PutBytes(doubleShaSenderDataBytes);
@@ -107,15 +184,42 @@ public class NyzoTransaction {
             buffer.PutBytes(this.SenderData);
         }
 
-        if(!forSigning){
+        if (!forSigning) {
             buffer.PutBytes(this.Signature);
-        }
+
+			//// For cycle transactions, order the signatures by verifier identifier. In the v1 blockchain, the
+			//// cycleSignatures field is used. In the v2 blockchain, the cycleSignatureTransactions field is used.
+			//if (type == typeCycle) {
+			//	if (cycleSignatures != null && !cycleSignatures.isEmpty()) {
+			//		List<ByteBuffer> signatureIdentifiers = new ArrayList<>(cycleSignatures.keySet());
+			//		signatureIdentifiers.sort(identifierComparator);
+
+			//		buffer.putInt(cycleSignatures.size());
+			//		for (ByteBuffer identifier : signatureIdentifiers) {
+			//			buffer.put(identifier.array());
+			//			buffer.put(cycleSignatures.get(identifier));
+			//		}
+			//	} else {
+			//		List<ByteBuffer> signatureIdentifiers = new ArrayList<>(cycleSignatureTransactions.keySet());
+			//		signatureIdentifiers.sort(identifierComparator);
+
+			//		buffer.putInt(cycleSignatureTransactions.size());
+			//		for (ByteBuffer identifier : signatureIdentifiers) {
+			//			Transaction signatureTransaction = cycleSignatureTransactions.get(identifier);
+			//			buffer.putLong(signatureTransaction.timestamp);
+			//			buffer.put(signatureTransaction.senderIdentifier);
+			//			buffer.put(signatureTransaction.cycleTransactionVote);
+			//			buffer.put(signatureTransaction.signature);
+			//		}
+			//	}
+			//}
+		}
 
         return buffer.ReadBytes();
     }
 
 	/// <summary>
-	/// <para>Only compatible with an output from GetBytes whereby includeSignature:true</para>
+	/// <para>Only compatible with an output from GetBytes whereby includeSignature:true & ported with implementation from nyzoChromeExtension, not nyzoVerifier</para>
 	/// <para>TODO - full alignment with <see href="https://tech.nyzo.org/dataFormats/transaction"></see></para>
 	/// </summary>
 	/// <param name="array"></param>

@@ -252,7 +252,7 @@ public class NyzoTransactionTests {
 
 		dummytx.Sign(txPrivateSeedBytes);
 
-		var dummytxGetBytes = dummytx.GetBytes(true);
+		var dummytxGetBytes = dummytx.GetBytes(false);
 
 		// Using content from GetBytes output as an argument here does not mean you will have an identical object
 		txFromBytes = NyzoTransaction.FromBytes(dummytxGetBytes);
