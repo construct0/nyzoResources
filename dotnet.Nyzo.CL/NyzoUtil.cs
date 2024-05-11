@@ -6,7 +6,6 @@ using System.Text;
 
 namespace Nyzo.CL;
 
-// Untested - todo
 public static class NyzoUtil {
     public static byte[] HexStringAsByteArray(string identifier){
         identifier = identifier.Replace("-", "");
@@ -127,7 +126,7 @@ public static class NyzoUtil {
         var isValid = false;
 
         seedString = seedString.Trim();
-        var key = NyzoStringEncoder.DecodePrivateSeed(seedString);
+        var key = NyzoStringEncoder.DecodePrivateKey(seedString);
         isValid = key is not null;
 
         return isValid;
@@ -184,7 +183,7 @@ public static class NyzoUtil {
         try {
             return Sodium.PublicKeyAuth.Verify(signedMessage, publicIdentifier);
 		} catch(CryptographicException e) {
-            throw new InvalidOperationException("Validate the message first", e);
+            throw new InvalidOperationException("Validate the arguments with IsValidSignedMessage first", e);
         }
 	}
 
