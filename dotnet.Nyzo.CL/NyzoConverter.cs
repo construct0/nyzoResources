@@ -9,7 +9,7 @@ public class NyzoConverter {
 
         // Decode the key string
         keyString = keyString.Trim();
-        var key = NyzoStringEncoder.DecodePrivateSeed(keyString);
+        var key = NyzoStringEncoder.DecodePrivateKey(keyString);
 
         if(key?.Seed is not null){
             // Get the identifier for the key and make an identifier string
