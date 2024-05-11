@@ -2,7 +2,6 @@ using System;
 
 namespace Nyzo.CL;
 
-// Untested. Use at your own risk.
 public class NyzoTransaction {
     public DateTime Timestamp {get;private set;}
     public short Type {get;private set;}
@@ -115,10 +114,13 @@ public class NyzoTransaction {
         return buffer.ReadBytes();
     }
 
-    /// <summary>
-    /// Using content from GetBytes output as an argument here does not mean you will have an identical object, refer to Nyzo.CL.Tests.NyzoTransactionTests
-    /// </summary>
-    public static NyzoTransaction FromBytes(byte[] array){
+	/// <summary>
+	/// <para>Only compatible with an output from GetBytes whereby includeSignature:true</para>
+	/// <para>TODO - full alignment with <see href="https://tech.nyzo.org/dataFormats/transaction"></see></para>
+	/// </summary>
+	/// <param name="array"></param>
+	/// <returns></returns>
+	public static NyzoTransaction FromBytes(byte[] array){
         var buffer = new ByteBuffer(array);
         var transaction = new NyzoTransaction();
 
@@ -126,7 +128,7 @@ public class NyzoTransaction {
         transaction.SetTimestamp(DateTime.FromFileTimeUtc(buffer.ReadInt64()));
         transaction.SetAmount(buffer.ReadInt64());
         transaction.SetRecipientIdentifier(buffer.ReadBytes(32));
-        transaction.SetPreviousHashHeight(buffer.ReadInt64());
+		transaction.SetPreviousHashHeight(buffer.ReadInt64());
         transaction.SetSenderIdentifier(buffer.ReadBytes(32));
 
         var dataLength = buffer.ReadByte();
