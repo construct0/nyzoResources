@@ -7,6 +7,13 @@ using System.Text;
 namespace Nyzo.CL;
 
 public static class NyzoUtil {
+    public static string ByteArrayAsHexString(byte[] array) {
+        return BitConverter.ToString(array)
+                           .Replace("-", "")
+                           .ToLower()
+                           ;
+    }
+
     public static byte[] HexStringAsByteArray(string identifier){
         identifier = identifier.Replace("-", "");
 

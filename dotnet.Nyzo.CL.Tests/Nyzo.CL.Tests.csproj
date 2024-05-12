@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<PackageId>Nyzo.CL.Tests</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.1.0</Version>
 	<Authors>Benjamin Van Renterghem</Authors>
 	<Company>construct0</Company>
 	<PackageDescription>xUnit test project for the Nyzo class library (Nyzo.CL). The version indicates which Nyzo.CL version it is paired to.</PackageDescription>
