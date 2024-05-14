@@ -1,0 +1,68 @@
+# ----
+
+reload_instance(){
+    sudo supervisorctl reload
+
+    while ! (supervisorctl status | grep --line-buffered RUNNING); do
+        :
+    done
+
+    echo "Verifier started"
+
+    sudo supervisorctl tail -f nyzo_verifier
+}
+
+alias nreload='reload_instance'
+
+alias nrepo='cd /home/ubuntu/nyzoVerifier'
+
+alias nrepo_checkremote_origin='nrepo && git remote -v show origin | grep https'
+
+alias nrepo_checkbranch='nrepo && git rev-parse --abbrev-ref HEAD'
+
+alias nrepo_checktag='nrepo && git describe --tags --exact-match HEAD 2> /dev/null && git describe --tags --exact-match HEAD | head -n0'
+
+alias nrepo_setremote_construct0='nrepo && git remote set-url origin https://github.com/construct0/nyzoVerifier.git'
+
+alias nrepo_setremote_nyzo='nrepo && git remote set-url origin https://github.com/n-y-z-o/nyzoVerifier.git'
+
+# does not overwrite any files, the fetched content is stored separately elsewhere
+alias nrepo_fetch='nrepo && git fetch'
+
+# the amount of commits your local repo is behind (if you are on main branch and did not make local edits which were comitted)
+alias nrepo_amtbehind_main='nrepo_fetch && git rev-list --count HEAD...origin/HEAD'
+
+# the amount of commits your local repo is behind (if you are on datadumper, i.e. nyzo-org-data-facilitator branch and did not make local edits which were comitted)
+alias nrepo_amtbehind_datadumper='nrepo_fetch && git rev-list --count HEAD...origin/nyzo-org-data-facilitator'
+
+# same principle but implies you know what branch you are on
+alias nrepo_amtbehind='nrepo_fetch && git rev-list --count HEAD...origin/$( nrepo_checkbranch  )'
+
+alias nrepo_status='nrepo_fetch && git show -s --format=%ci HEAD && git rev-parse HEAD'
+
+
+
+# shows local commit hash, date, commits behind
+alias nrepo_checklocal='nrepo_status && echo "commits behind: $( nrepo_amtbehind  )" '
+
+# shows remote origin, branch, commit hash and date
+alias nrepo_checkremote='nrepo_checkremote_origin && echo "branch:"$( nrepo_checkbranch ) && echo "tag:"$( nrepo_checktag  )  &&git ls-remote origin HEAD | cut -f1 | git show -s --format=%ci && git ls-remote origin HEAD | cut -f1'
+
+# shows checklocal and checkremote output
+alias nrepo_check='echo "----local:" && echo "$( nrepo_checklocal )" && echo "----remote:" && echo "$( nrepo_checkremote  )"'
+
+
+alias nbuild='nrepo && ./gradlew build'
+
+alias nsrc='nrepo && cd ./src/main/java/co/nyzo/verifier'
+
+alias nversionraw='nsrc && cat ./Version.java'
+
+# accurate for version >=643
+alias nversion="nversionraw | grep private | awk '/version/ { version=\$NF } /subVersion/ { subVersion=\$NF } END { printf \"%.1f\n\", version+(subVersion/10) }'"
+
+alias nprod='cd /var/lib/nyzo/production'
+
+alias npref='nprod && nano ./preferences'
+
+# ----
