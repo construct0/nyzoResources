@@ -1,3 +1,6 @@
+echo "Refer to tech.nyzo.org setup instructions and use the enableWebListenerHTTPS.sh script (runmode agnostic)"
+exit 1;
+
 #!/bin/bash
 # Tested on ubuntu 22.04, certbot v1.21.0, nyzoVerifier v642
 
@@ -65,15 +68,17 @@ sed -i -e 's/startretries=20/startretries=99999/g' nyzoClient.sh
 # Copy this configuration file to the supervisor's production folders
 sudo cp nyzoClient.conf /etc/supervisor/conf.d
  
-# Static preferences to make your client function properly, default port 80
-sudo echo -e "web_port=80" > /var/lib/nyzo/production/preferences
- 
 # Enter your client preferences, these get stored in the preferences file, adjusting the web ports should be sufficient for most users
 sudo echo -e "block_file_consolidator=disable
 start_historical_block_manager=1
 transaction_indexer_active=1
 start_web_listener=1
+web_port=80
+web_port_https=443
 " >> /var/lib/nyzo/production/preferences
+
+# Create a temporary web forwarding proxy
+sudo mkdir /var/lib/nyzo/production/webTemp
  
 reload_instance(){
     # If trying to install multiple times, the log output is removed so the grep (searching the output file) will work 
@@ -94,10 +99,6 @@ reload_instance(){
     done
  
     echo "Client launched successfully, network status: $(supervisorctl tail -100 nyzo_client | grep "frozen edge")"
- 
-    # Certificate using LetsEncrypt
-    # Create a temporary web forwarding proxy
-    sudo mkdir /var/lib/nyzo/production/webTemp
  
     # Create SSL certificate, fetch using HTTP to be aware of liveliness of the web listener content 
     while ! (curl $CLIENT_DOMAIN | grep --line-buffered frozenEdge); do 
@@ -142,6 +143,9 @@ else
     echo "Invalid domain, email or password length"
 fi 
  
+
+sudo rmdir /var/lib/nyzo/production/webTemp 
+
 # When the server reboots, this will ensure the client starts as well
 # This will remove active cronjobs, so be careful
 echo "@reboot sudo supervisorctl reload" >> rebootcronjob
