@@ -14,6 +14,8 @@ reload_instance(){
 
 alias nreload='reload_instance'
 
+alias ntail='supervisorctl tail -f nyzo_verifier'
+
 alias nrepo='cd /home/ubuntu/nyzoVerifier'
 
 alias nrepo_checkremote_origin='nrepo && git remote -v show origin | grep https'
