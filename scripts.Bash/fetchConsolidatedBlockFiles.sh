@@ -1,4 +1,5 @@
 #!/bin/bash
+# sync to production folder with scripts.Python/syncFetchedConsolidatedBlockFilesToProd.py
 
 # crontab:
 # @reboot /bin/bash /path/to/script/fetchConsolidatedBlockFiles.sh
@@ -10,7 +11,8 @@
 # bash fetchConsolidatedBlockFiles.sh
 # CTRL + b
 # d
-base_url="https://blocks.nyzo.co/blockFiles"
+
+base_url="https://blocks.nyzo.org"
 id=0
 
 while true; do
@@ -38,17 +40,10 @@ while true; do
     http_status="${response:0:1}"
 
     if [[ $http_status -eq 2 ]]; then
-        if { c=$(strings -n 10 <"$temp_file") && echo "$c" | grep -q "error reading file"; }; then
-            echo "200 - error reading file for $output_file - the consolidated block may not be available yet - retrying in 60 seconds..."
-            rm -f "$temp_file"
-            sleep 60
-            continue
-        fi
-
         echo "200 for $output_file, writing to file"
         mv "$temp_file" "$output_file"
         ((id++))
-        sleep 0.2
+        sleep 0.1
     else
         echo "received non-2xx HTTP status code - retrying in 20 seconds..."
         rm -f "$temp_file"
