@@ -14,6 +14,10 @@ SSL_EXPORT_PASSWORD=""
 # Update the server
 # Upgrade the server if necessary, remove the hashtag on the next line to do so
 sudo apt update -y
+
+# Ensures that system time is synced properly
+sudo systemctl enable systemd-timesyncd
+sudo systemctl start systemd-timesyncd
  
 # Install dependencies, things the application relies on to function properly
 sudo apt install haveged -y
@@ -146,8 +150,10 @@ fi
 
 sudo rmdir /var/lib/nyzo/production/webTemp 
 
+cd /home/ubuntu
+crontab -l > crontab.backup
+
 # When the server reboots, this will ensure the client starts as well
-# This will remove active cronjobs, so be careful
 echo "@reboot sudo supervisorctl reload" >> rebootcronjob
 crontab rebootcronjob
 rm rebootcronjob
