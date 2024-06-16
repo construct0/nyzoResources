@@ -194,6 +194,10 @@ public static class NyzoUtil {
         }
 	}
 
+    public static byte[] SignMessage(string message, NyzoStringPrivateKey nyzoStringPrivateKey) {
+        return Sodium.PublicKeyAuth.Sign(message, nyzoStringPrivateKey.Seed);
+    }
+
 	// This is not a robust check for valid/invalid URLs. It is just a check to ensure that the provided URL is somewhat reasonable for use as a client URL.
 	public static bool IsValidClientURL(string clientUrl){
         var isValid = false;
