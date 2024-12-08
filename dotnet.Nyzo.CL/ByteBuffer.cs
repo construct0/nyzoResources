@@ -84,7 +84,9 @@ public class ByteBuffer : IDisposable {
 	}
 
 	public override int GetHashCode() {
-		throw new NotSupportedException();
+		byte[] doubleSha256 = NyzoUtil.ByteArrayAsDoubleSha256ByteArray(this.Buffer);
+
+		return BitConverter.ToInt32(doubleSha256);
 	}
 
 	// Position

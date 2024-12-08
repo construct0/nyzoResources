@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Nyzo.CL</PackageId>
-    <Version>1.2.1</Version>
+    <Version>1.3.0</Version>
     <Authors>Benjamin Van Renterghem</Authors>
     <Company>construct0</Company>
     <PackageDescription>Nyzo class library.</PackageDescription>
@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath=".\"/>
-    <None Include="LICENSE" Pack="true" PackagePath=".\"/>
-    <None Include="libsodium-core-master.zip.bak" Pack="true" PackagePath=".bak\"/>
+    <None Include="README.md" Pack="true" PackagePath=".\" />
+    <None Include="LICENSE" Pack="true" PackagePath=".\" />
+    <None Include="libsodium-core-master.zip.bak" Pack="true" PackagePath=".bak\" />
   </ItemGroup>
 
 </Project>

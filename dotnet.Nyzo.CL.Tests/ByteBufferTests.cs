@@ -72,6 +72,32 @@ public class ByteBufferTests {
 	}
 
 	[Fact]
+	public void GetHashCode_UsedAsSourceOfTruth_ShouldEnableComparison() {
+		// Large amount of bytes with a small difference
+		var array = new byte[int.MaxValue / 10];
+		var array1 = new byte[int.MaxValue / 10];
+
+		for(int i=0; i<array.Length; i++) {
+			var value = new Random().Next(0, 256);
+
+			array[i] = (byte)value;
+			array1[i] = (byte)value;
+
+			if(i == ((int.MaxValue / 10) / 2)) {
+				array1[i] = 1;
+			}
+		}
+
+		var buffer = new ByteBuffer(array);
+		var buffer1 = new ByteBuffer(array1);
+
+		var bufferHashCode = buffer.GetHashCode();
+		var buffer1HashCode = buffer1.GetHashCode();
+
+		Assert.NotEqual(bufferHashCode, buffer1HashCode);
+	}
+
+	[Fact]
 	public void PuttingByte_ShouldAllowForRetrieval() {
 		// Arrange
 		var byteBuffer = new ByteBuffer(1);
