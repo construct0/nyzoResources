@@ -84,7 +84,7 @@ public class ByteBufferTests {
 			array1[i] = (byte)value;
 
 			if(i == ((int.MaxValue / 10) / 2)) {
-				array1[i] = 1;
+				array1[i] = (byte)(value == 0 ? 255 : value - 1);
 			}
 		}
 
