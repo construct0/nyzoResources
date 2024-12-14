@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Nyzo.CL</PackageId>
-    <Version>1.3.0</Version>
+    <Version>1.3.1</Version>
     <Authors>Benjamin Van Renterghem</Authors>
     <Company>construct0</Company>
     <PackageDescription>Nyzo class library.</PackageDescription>

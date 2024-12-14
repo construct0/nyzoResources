@@ -63,10 +63,6 @@ public class ByteBuffer : IDisposable {
 
 	// Compare
 	public bool IsEqualTo(ByteBuffer byteBuffer) {
-		if (this == byteBuffer) {
-			throw new InvalidOperationException("Provide a unique ByteBuffer instance to compare with");
-		}
-
 		var thisString = BitConverter.ToString(this.Buffer).Replace("-", "");
 		var inputString = BitConverter.ToString(byteBuffer.Buffer).Replace("-", "");
 
